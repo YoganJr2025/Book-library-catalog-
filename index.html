@@ -51,6 +51,12 @@
             background: #4b0082;
             color: #ffffff;
         }
+        .stats {
+            margin-top: 20px;
+            background: #e6e6fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -70,6 +76,11 @@
             </thead>
             <tbody id="book-list"></tbody>
         </table>
+        <div class="stats">
+            <h2>Statistics</h2>
+            <p>Total Books: <span id="total-books">0</span></p>
+            <p>Borrowed Books: <span id="borrowed-books">0</span></p>
+        </div>
     </div>
     <script>
         const books = [];
@@ -102,6 +113,7 @@
                 `;
                 bookList.appendChild(row);
             });
+            updateStatistics();
         }
         
         function borrowBook(index) {
@@ -118,8 +130,14 @@
             books.splice(index, 1);
             renderBooks();
         }
+        
+        function updateStatistics() {
+            const totalBooks = books.length;
+            const borrowedBooks = books.filter(book => book.status === 'Borrowed').length;
+            document.getElementById('total-books').innerText = totalBooks;
+            document.getElementById('borrowed-books').innerText = borrowedBooks;
+        }
     </script>
 </body>
 </html>
-
 
